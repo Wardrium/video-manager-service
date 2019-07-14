@@ -1,13 +1,12 @@
 {
-  "name": "file-server-service",
+  "name": "video-manager-service",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/app.js",
   "scripts": {
     "build": "tsc",
     "start": "node ."
   },
-  "keywords": [],
   "author": "wardrium",
   "license": "ISC",
   "dependencies": {
