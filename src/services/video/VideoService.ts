@@ -8,9 +8,10 @@ export interface IVideoService {
 }
 
 export interface VideoInfo {
-    displayName: string;
-    fileName: string;
-    subtitles: string | null;
+    id: string;
+    name: string;
+    fileType: string;
+    subtitles: string[];
 }
 
 export class VideoService implements IVideoService {
@@ -20,8 +21,9 @@ export class VideoService implements IVideoService {
         fs.readdirSync(VIDEO_FOLDER_URI).forEach(file => {
             if (this.isSupportedFormat(file)) {
                 videos.push({
-                    fileName: file,
-                    displayName: this.getDisplayName(file),
+                    id: this.getFileId(file),
+                    name: this.getDisplayName(file),
+                    fileType: this.getFileExtension(file),
                     subtitles: this.getSubtitlesFile(file),
                 });
             }
@@ -36,18 +38,22 @@ export class VideoService implements IVideoService {
         return SUPPORTED_VIDEO_FORMATS.includes(extension);
     }
 
+    private getFileId(file: string): string {
+        return encodeURI(this.getFileName(file));
+    }
+
     private getDisplayName(file: string): string {
         return this.getFileName(file);
     }
 
-    private getSubtitlesFile(file: string): string | null {
+    private getSubtitlesFile(file: string): string[] {
         const fileName = this.getFileName(file);
         const subtitleFile = `${fileName}.vtt`;
 
         if (fs.existsSync(`${VIDEO_FOLDER_URI}/${subtitleFile}`)) {
-            return subtitleFile
+            return ["EN"];
         } else {
-            return null;
+            return [];
         }
     }
 
