@@ -1,11 +1,16 @@
+import "reflect-metadata";
 import express from "express";
-import { VideoController } from "./controllers/VideoController";
+import { createConnection } from "typeorm";
 
-const app = express();
-const port = 8081;
+import { VideoController } from "./app/controller/VideoController";
 
-app.use('/video', VideoController);
+createConnection().then(async connection => {
+   const app = express();
+   const port = 8081;
 
-app.listen(port, () => {
-   console.log(`server started at http://localhost:${port}`);
-});
+   app.use('/videos', VideoController);
+
+   app.listen(port, () => {
+      console.log(`server started at http://localhost:${port}`);
+   });
+}).catch(error => console.log("TypeORM connection error: ", error));
