@@ -29,6 +29,16 @@ router.get("/:videoId", async (req, res) => {
     });
 });
 
+router.get("/:videoId/about", async(req, res) => {
+    const videoInfoService = getVideoInfoService();
+
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "application/json");
+
+    const video = await videoInfoService.getVideo(req.params.videoId);
+    res.send(JSON.stringify(video));
+});
+
 router.get("/:videoId/subtitles", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
