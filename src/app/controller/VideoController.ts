@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { VIDEO_FOLDER_URI } from "../../configuration";
+import { PROCESSED_VIDEO_FOLDER_URI } from "../../configuration";
 import { getVideoInfoService } from "../service/video-info/IVideoInfoService";
 
 const router: Router = Router();
@@ -22,7 +22,7 @@ router.get("/:videoId", async (req, res) => {
 
     const video = await videoInfoService.getVideo(req.params.videoId);
     const fileName = `${video.id}.${video.fileType}`;
-    res.sendFile(`${VIDEO_FOLDER_URI}/${fileName}`,(err) => {
+    res.sendFile(`${PROCESSED_VIDEO_FOLDER_URI}/${fileName}`,(err) => {
         if (err && err.message.includes("ENOENT")) {
             res.status(404).send("Requested video does not exist.");
         }
@@ -43,7 +43,7 @@ router.get("/:videoId/subtitles", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     const fileName = `${req.params.videoId}.vtt`;
-    res.sendFile(`${VIDEO_FOLDER_URI}/${fileName}`,(err) => {
+    res.sendFile(`${PROCESSED_VIDEO_FOLDER_URI}/${fileName}`,(err) => {
         if (err && err.message.includes("ENOENT")) {
             res.status(404).send("Requested subtitles do not exist.");
         }
