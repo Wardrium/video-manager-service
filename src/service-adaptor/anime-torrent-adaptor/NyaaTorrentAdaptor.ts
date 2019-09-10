@@ -55,8 +55,8 @@ export class NyaaTorrentAdaptor implements IAnimeTorrentAdaptor {
             name: row.children("td:nth-child(2)").children("a:not(.comments)").attr("title"),
             magnetLink: row.children("td:nth-child(3)").children("a:last-child").attr("href"),
             fileSize: row.children("td:nth-child(4)").text(),
-            seeders: parseInt(row.children("td:nth-child(5)").text()),
-            leechers: parseInt(row.children("td:nth-child(6)").text()),
+            seeders: parseInt(row.children("td:nth-child(6)").text()),
+            leechers: parseInt(row.children("td:nth-child(7)").text()),
         };
     }
 }
