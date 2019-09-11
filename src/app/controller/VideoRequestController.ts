@@ -11,7 +11,6 @@ router.post("/search", async(req, res) => {
         search: string;
     } = req.body;
 
-    res.setHeader("Access-Control-Allow-origin", "*");
     res.setHeader("Content-Type", "application/json");
 
     const results = await animeTorrentAdaptor.search(body.search);

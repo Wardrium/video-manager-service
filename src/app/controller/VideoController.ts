@@ -8,7 +8,6 @@ const router: Router = Router();
 router.get("/", async (req, res) => {
     const videoInfoService = getVideoInfoService();
 
-    res.setHeader("Access-Control-Allow-origin", "*");
     res.setHeader("Content-Type", "application/json");
 
     const videos = await videoInfoService.listVideos();
@@ -17,8 +16,6 @@ router.get("/", async (req, res) => {
 
 router.get("/:videoId", async (req, res) => {
     const videoInfoService = getVideoInfoService();
-
-    res.setHeader("Access-Control-Allow-Origin", "*");
 
     const video = await videoInfoService.getVideo(req.params.videoId);
     const fileName = `${video.id}.${video.fileType}`;
@@ -32,7 +29,6 @@ router.get("/:videoId", async (req, res) => {
 router.get("/:videoId/about", async(req, res) => {
     const videoInfoService = getVideoInfoService();
 
-    res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Content-Type", "application/json");
 
     const video = await videoInfoService.getVideo(req.params.videoId);

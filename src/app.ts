@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import express from "express";
 import { createConnection } from "typeorm";
+import cors from "cors";
 import bodyParser from "body-parser";
 
 import { VideoController } from "./app/controller/VideoController";
@@ -13,6 +14,7 @@ createConnection().then(async connection => {
    app.use(bodyParser.urlencoded({
       extended: true
    }));
+   app.use(cors());
    app.use(bodyParser.json());
 
    app.use("/videos", VideoController);
